@@ -1,0 +1,19 @@
+services:
+  mewhelp-lite:
+    build: .
+    container_name: mewhelp-lite
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: sqlite+aiosqlite:///data/mewhelp.db
+      MILVUS_URI: local://data/milvus_lite.json
+      PORT: 8000
+    ports:
+      - "8000:8000"
+    volumes:
+      - mewhelp-lite-data:/app/data
+      - ./log:/app/log
+
+volumes:
+  mewhelp-lite-data:
